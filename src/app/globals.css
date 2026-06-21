@@ -1,0 +1,236 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Premium Dark Theme Color Palette */
+  --bg-obsidian: #05070a;
+  --bg-terminal: #090c12;
+  --bg-panel: rgba(13, 19, 33, 0.7);
+  --bg-panel-solid: #0d1321;
+  --bg-card: rgba(20, 30, 50, 0.4);
+  --bg-card-hover: rgba(28, 41, 68, 0.6);
+  
+  /* Neon Bloomberg/Palantir Accents */
+  --terminal-green: #00ff66;
+  --terminal-green-dim: #00b347;
+  --terminal-green-glow: rgba(0, 255, 102, 0.15);
+  
+  --cyberspace-blue: #00e5ff;
+  --cyberspace-blue-dim: #0099ab;
+  --cyberspace-blue-glow: rgba(0, 229, 255, 0.15);
+  
+  --gold: #ffb300;
+  --gold-dim: #cca100;
+  --gold-glow: rgba(255, 179, 0, 0.15);
+  
+  --alert-red: #ff4a4a;
+  --alert-red-dim: #cc3b3b;
+  --alert-red-glow: rgba(255, 74, 74, 0.15);
+  
+  /* Neutral Text and Borders */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
+  --border-color: rgba(0, 229, 255, 0.15);
+  --border-glow: rgba(0, 229, 255, 0.3);
+  --border-solid: #1e293b;
+  
+  /* Font Families */
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-medium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Styles overrides */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--bg-terminal);
+}
+
+body {
+  background-color: var(--bg-obsidian);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Futuristic Scanline Effect */
+body::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 9999;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-obsidian);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyberspace-blue);
+  box-shadow: 0 0 8px var(--cyberspace-blue);
+}
+
+/* Common Typography & Layout elements */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* Glowing animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.2), inset 0 0 10px rgba(0, 229, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.4), inset 0 0 15px rgba(0, 229, 255, 0.2);
+  }
+}
+
+@keyframes terminalBlink {
+  50% { opacity: 0; }
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background-color: var(--terminal-green);
+  animation: terminalBlink 1s infinite;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* Bloomberg Grid Backdrop */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Glassmorphism Panel styles */
+.glass-panel {
+  background: var(--bg-panel);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+.glow-green {
+  border-color: var(--terminal-green);
+  box-shadow: 0 0 15px var(--terminal-green-glow);
+}
+
+.glow-blue {
+  border-color: var(--cyberspace-blue);
+  box-shadow: 0 0 15px var(--cyberspace-blue-glow);
+}
+
+.glow-amber {
+  border-color: var(--gold);
+  box-shadow: 0 0 15px var(--gold-glow);
+}
+
+.glow-red {
+  border-color: var(--alert-red);
+  box-shadow: 0 0 15px var(--alert-red-glow);
+}
+
+/* Custom Print Stylesheet for PDF Output */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-family: 'Georgia', serif !important;
+  }
+  
+  body::before, .grid-overlay {
+    display: none !important;
+  }
+  
+  .glass-panel {
+    background: transparent !important;
+    border: 1px solid #cccccc !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    page-break-inside: avoid;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #000000 !important;
+  }
+  
+  p, span, li, td, th {
+    color: #333333 !important;
+  }
+  
+  /* Ensure radar and Monte Carlo print as high-res vector */
+  svg {
+    filter: none !important;
+  }
+}
+
+/* focus-within and hover enhancements for vanilla CSS components */
+.search-input-container:focus-within {
+  border-color: var(--cyberspace-blue) !important;
+  box-shadow: 0 0 8px var(--cyberspace-blue-glow);
+}
+
+.source-link:hover {
+  color: var(--text-primary) !important;
+  text-shadow: 0 0 6px var(--cyberspace-blue-glow);
+}
+
+.print-pdf-btn:hover {
+  background-color: var(--cyberspace-blue) !important;
+  color: var(--bg-obsidian) !important;
+  box-shadow: 0 0 10px var(--cyberspace-blue-glow) !important;
+}
